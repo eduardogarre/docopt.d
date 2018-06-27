@@ -55,7 +55,7 @@ class DocoptExitVersion : Exception {
 
 private Option[] parseDefaults(string doc) {
     Option[] defaults;
-    foreach(sect; parseSection("options:", doc)) {
+    foreach(sect; parseSection("opciones:", doc)) {
         auto s = sect[std.string.indexOf(sect, ":")+1..$];
         auto pat = regex(r"\n[ \t]*(-\S+?)");
         auto parts = split("\n"~s, pat)[1..$];
@@ -302,7 +302,7 @@ private Pattern[] parseAtom(Tokens tokens, ref Option[] options) {
             assert(false);
         }
         return [pat];
-    } else if (token == "options") {
+    } else if (token == "opciones") {
         tokens.move();
         return [new OptionsShortcut()];
     } else if (startsWith(token, "--") && token != "--") {
@@ -346,8 +346,8 @@ private Pattern[] parseArgv(Tokens tokens, ref Option[] options, bool optionsFir
 private void extras(bool help, string vers, Pattern[] args) {
     if (help) {
         foreach(opt; args) {
-            if ( (opt.name == "-h" || opt.name == "--help") && opt.value) {
-                throw new DocoptExitHelp("help");
+            if ( (opt.name == "-a" || opt.name == "--ayuda") && opt.value) {
+                throw new DocoptExitHelp("ayuda");
             }
         }
     }
@@ -377,12 +377,12 @@ public ArgValue[string] parse(string doc, string[] argv,
                                bool optionsFirst = false) {
     ArgValue[string] dict;
 
-    auto usageSections = parseSection("usage:", doc);
+    auto usageSections = parseSection("uso:", doc);
     if (usageSections.length == 0) {
-        throw new DocoptLanguageError("'usage:' (case-insensitive) not found.");
+        throw new DocoptLanguageError("'uso:' (case-insensitive) not found.");
     }
     if (usageSections.length > 1) {
-        throw new DocoptLanguageError("More than one 'usage:' (case-insensitive)");
+        throw new DocoptLanguageError("More than one 'uso:' (case-insensitive)");
     }
     auto usageMsg = usageSections[0];
     auto formal = formalUsage(usageMsg);
@@ -519,23 +519,23 @@ version(unittest)
 unittest {
     // Commands
     ArgValue[string] empty;
-    assert(docopt("Usage: prog", []) == empty);
-    assert(docopt("Usage: prog add", ["add"]) == ["add": new ArgValue(true)]);
-    assert(docopt("Usage: prog [add]", [""]) == ["add": new ArgValue(false)]);
-    assert(docopt("Usage: prog [add]", ["add"]) == ["add": new ArgValue(true)]);
-    assert(docopt("Usage: prog (add|rm)", ["add"]) == ["add": new ArgValue(true), "rm": new ArgValue(false)]);
-    assert(docopt("Usage: prog (add|rm)", ["rm"]) == ["add": new ArgValue(false), "rm": new ArgValue(true)]);
-    assert(docopt("Usage: prog a b", ["a", "b"]) == ["a": new ArgValue(true), "b": new ArgValue(true)]);
+    assert(docopt("Uso: prog", []) == empty);
+    assert(docopt("Uso: prog add", ["add"]) == ["add": new ArgValue(true)]);
+    assert(docopt("Uso: prog [add]", [""]) == ["add": new ArgValue(false)]);
+    assert(docopt("Uso: prog [add]", ["add"]) == ["add": new ArgValue(true)]);
+    assert(docopt("Uso: prog (add|rm)", ["add"]) == ["add": new ArgValue(true), "rm": new ArgValue(false)]);
+    assert(docopt("Uso: prog (add|rm)", ["rm"]) == ["add": new ArgValue(false), "rm": new ArgValue(true)]);
+    assert(docopt("Uso: prog a b", ["a", "b"]) == ["a": new ArgValue(true), "b": new ArgValue(true)]);
 
     // formal usage
     auto doc = "
-Usage: prog [-hv] ARG
+Uso: prog [-hv] ARG
        prog N M
 
 prog is a program.
 ";
-    auto usageStr = parseSection("usage:", doc);
-    assert(usageStr[0] ==  "Usage: prog [-hv] ARG\n       prog N M");
+    auto usageStr = parseSection("uso:", doc);
+    assert(usageStr[0] ==  "Uso: prog [-hv] ARG\n       prog N M");
     assert(formalUsage(usageStr[0]) == "( [-hv] ARG ) | ( N M )");
 
     // test parseArgv
@@ -777,63 +777,63 @@ prog is a program.
     // test parseSection
 
     auto usage = "
-usage: this
+uso: this
 
-usage:hai
-usage: this that
+uso:hai
+uso: this that
 
-usage: foo
+uso: foo
        bar
 
-PROGRAM USAGE:
+USO DEL PROGRAMA:
  foo
  bar
-usage:
+uso:
 \ttoo
 \ttar
-Usage: eggs spam
+Uso: eggs spam
 BAZZ
-usage: pit stop";
+uso: pit stop";
 
-    assert(parseSection("usage:", "foo bar fizz buzz") == []);
-    assert(parseSection("usage:", "usage: prog") == ["usage: prog"]);
-    assert(parseSection("usage:", "usage: -x\n -y") == ["usage: -x\n -y"]);
-    assert(parseSection("usage:", usage) == [
-            "usage: this",
-            "usage:hai",
-            "usage: this that",
-            "usage: foo\n       bar",
-            "PROGRAM USAGE:\n foo\n bar",
-            "usage:\n\ttoo\n\ttar",
-            "Usage: eggs spam",
-            "usage: pit stop",
+    assert(parseSection("uso:", "foo bar fizz buzz") == []);
+    assert(parseSection("uso:", "uso: prog") == ["uso: prog"]);
+    assert(parseSection("uso:", "uso: -x\n -y") == ["uso: -x\n -y"]);
+    assert(parseSection("uso:", usage) == [
+            "uso: this",
+            "uso:hai",
+            "uso: this that",
+            "uso: foo\n       bar",
+            "USO DEL PROGRAMA:\n foo\n bar",
+            "uso:\n\ttoo\n\ttar",
+            "Uso: eggs spam",
+            "uso: pit stop",
         ]);
 
 
     // test any options parameter
     try {
-        parse("usage: prog [options]", ["-foo", "--bar", "--spam=eggs"]);
+        parse("uso: prog [opciones]", ["-foo", "--bar", "--spam=eggs"]);
     } catch(DocoptArgumentError) {
         assert(true);
     } catch(Exception) {
         assert(false);
     }
     try {
-        parse("usage: prog [options]", ["--foo", "--bar", "--bar"]);
+        parse("uso: prog [opciones]", ["--foo", "--bar", "--bar"]);
     } catch(DocoptArgumentError) {
         assert(true);
     } catch(Exception) {
         assert(false);
     }
     try {
-        parse("usage: prog [options]", ["--bar", "--bar", "--bar", "-ffff"]);
+        parse("uso: prog [opciones]", ["--bar", "--bar", "--bar", "-ffff"]);
     } catch(DocoptArgumentError) {
         assert(true);
     } catch(Exception) {
         assert(false);
     }
     try {
-        parse("usage: prog [options]", ["--long=arg", "--long=another"]);
+        parse("uso: prog [opciones]", ["--long=arg", "--long=another"]);
     } catch(DocoptArgumentError) {
         assert(true);
     } catch(Exception) {

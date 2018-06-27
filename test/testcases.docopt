@@ -1,4 +1,4 @@
-r"""Usage: prog
+r"""Uso: prog
 
 """
 $ prog
@@ -8,24 +8,24 @@ $ prog --xxx
 "user-error"
 
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-Options: -a  All.
+Opciones: -t  Todo.
 
 """
 $ prog
-{"-a": false}
+{"-t": false}
 
-$ prog -a
-{"-a": true}
+$ prog -t
+{"-t": true}
 
 $ prog -x
 "user-error"
 
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-Options: --all  All.
+Opciones: --all  All.
 
 """
 $ prog
@@ -38,24 +38,24 @@ $ prog --xxx
 "user-error"
 
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-Options: -v, --verbose  Verbose.
+Opciones: -c, --charlatan  Charlatan.
 
 """
-$ prog --verbose
-{"--verbose": true}
+$ prog --charlatan
+{"--charlatan": true}
 
-$ prog --ver
-{"--verbose": true}
+$ prog --char
+{"--charlatan": true}
 
-$ prog -v
-{"--verbose": true}
+$ prog -c
+{"--charlatan": true}
 
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-Options: -p PATH
+Opciones: -p PATH
 
 """
 $ prog -p home/
@@ -68,9 +68,9 @@ $ prog -p
 "user-error"
 
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-Options: --path <path>
+Opciones: --path <path>
 
 """
 $ prog --path home/
@@ -89,18 +89,18 @@ $ prog --path
 "user-error"
 
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-Options: -p PATH, --path=<path>  Path to files.
+Opciones: -p PATH, --path=<path>  Path to files.
 
 """
 $ prog -proot
 {"--path": "root"}
 
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-Options:    -p --path PATH  Path to files.
+Opciones:    -p --path PATH  Path to files.
 
 """
 $ prog -p root
@@ -110,9 +110,9 @@ $ prog --path root
 {"--path": "root"}
 
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-Options:
+Opciones:
  -p PATH  Path to files [default: ./]
 
 """
@@ -123,9 +123,9 @@ $ prog -phome
 {"-p": "home"}
 
 
-r"""UsAgE: prog [options]
+r"""UsO: prog [opciones]
 
-OpTiOnS: --path=<files>  Path to files
+OpCiOnEs: --path=<files>  Path to files
                 [dEfAuLt: /root]
 
 """
@@ -136,33 +136,33 @@ $ prog --path=home
 {"--path": "home"}
 
 
-r"""usage: prog [options]
+r"""uso: prog [opciones]
 
-options:
-    -a        Add
+opciones:
+    -t        Todo
     -r        Remote
     -m <msg>  Message
 
 """
-$ prog -a -r -m Hello
-{"-a": true,
+$ prog -t -r -m Hello
+{"-t": true,
  "-r": true,
  "-m": "Hello"}
 
-$ prog -armyourass
-{"-a": true,
+$ prog -trmyourass
+{"-t": true,
  "-r": true,
  "-m": "yourass"}
 
-$ prog -a -r
-{"-a": true,
+$ prog -t -r
+{"-t": true,
  "-r": true,
  "-m": null}
 
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-Options: --version
+Opciones: --version
          --verbose
 
 """
@@ -182,155 +182,155 @@ $ prog --verb
  "--verbose": true}
 
 
-r"""usage: prog [-a -r -m <msg>]
+r"""uso: prog [-t -r -m <msg>]
 
-options:
- -a        Add
+opciones:
+ -t        Todo
  -r        Remote
  -m <msg>  Message
 
 """
-$ prog -armyourass
-{"-a": true,
+$ prog -trmyourass
+{"-t": true,
  "-r": true,
  "-m": "yourass"}
 
 
-r"""usage: prog [-armmsg]
+r"""uso: prog [-armmsg]
 
-options: -a        Add
+opciones: -t        Todo
          -r        Remote
          -m <msg>  Message
 
 """
-$ prog -a -r -m Hello
+$ prog -t -r -m Hello
 {"-a": true,
  "-r": true,
  "-m": "Hello"}
 
 
-r"""usage: prog -a -b
+r"""uso: prog -t -b
 
-options:
- -a
+opciones:
+ -t
  -b
 
 """
-$ prog -a -b
-{"-a": true, "-b": true}
+$ prog -t -b
+{"-t": true, "-b": true}
 
-$ prog -b -a
-{"-a": true, "-b": true}
+$ prog -b -t
+{"-t": true, "-b": true}
 
-$ prog -a
+$ prog -t
 "user-error"
 
 $ prog
 "user-error"
 
 
-r"""usage: prog (-a -b)
+r"""uso: prog (-t -b)
 
-options: -a
+opciones: -t
          -b
 
 """
-$ prog -a -b
-{"-a": true, "-b": true}
+$ prog -t -b
+{"-t": true, "-b": true}
 
-$ prog -b -a
-{"-a": true, "-b": true}
+$ prog -b -t
+{"-t": true, "-b": true}
 
-$ prog -a
+$ prog -t
 "user-error"
 
 $ prog
 "user-error"
 
 
-r"""usage: prog [-a] -b
+r"""uso: prog [-t] -b
 
-options: -a
+opciones: -t
  -b
 
 """
-$ prog -a -b
-{"-a": true, "-b": true}
+$ prog -t -b
+{"-t": true, "-b": true}
 
-$ prog -b -a
-{"-a": true, "-b": true}
+$ prog -b -t
+{"-t": true, "-b": true}
 
-$ prog -a
+$ prog -t
 "user-error"
 
 $ prog -b
-{"-a": false, "-b": true}
+{"-t": false, "-b": true}
 
 $ prog
 "user-error"
 
 
-r"""usage: prog [(-a -b)]
+r"""uso: prog [(-t -b)]
 
-options: -a
+opciones: -t
          -b
 
 """
-$ prog -a -b
-{"-a": true, "-b": true}
+$ prog -t -b
+{"-t": true, "-b": true}
 
-$ prog -b -a
-{"-a": true, "-b": true}
+$ prog -b -t
+{"-t": true, "-b": true}
 
-$ prog -a
+$ prog -t
 "user-error"
 
 $ prog -b
 "user-error"
 
 $ prog
-{"-a": false, "-b": false}
+{"-t": false, "-b": false}
 
 
-r"""usage: prog (-a|-b)
+r"""uso: prog (-t|-b)
 
-options: -a
+opciones: -t
          -b
 
 """
-$ prog -a -b
+$ prog -t -b
 "user-error"
 
 $ prog
 "user-error"
 
-$ prog -a
-{"-a": true, "-b": false}
+$ prog -t
+{"-t": true, "-b": false}
 
 $ prog -b
-{"-a": false, "-b": true}
+{"-t": false, "-b": true}
 
 
-r"""usage: prog [ -a | -b ]
+r"""uso: prog [ -t | -b ]
 
-options: -a
+opciones: -t
          -b
 
 """
-$ prog -a -b
+$ prog -t -b
 "user-error"
 
 $ prog
-{"-a": false, "-b": false}
+{"-t": false, "-b": false}
 
-$ prog -a
-{"-a": true, "-b": false}
+$ prog -t
+{"-t": true, "-b": false}
 
 $ prog -b
-{"-a": false, "-b": true}
+{"-t": false, "-b": true}
 
 
-r"""usage: prog <arg>"""
+r"""uso: prog <arg>"""
 $ prog 10
 {"<arg>": "10"}
 
@@ -341,7 +341,7 @@ $ prog
 "user-error"
 
 
-r"""usage: prog [<arg>]"""
+r"""uso: prog [<arg>]"""
 $ prog 10
 {"<arg>": "10"}
 
@@ -352,7 +352,7 @@ $ prog
 {"<arg>": null}
 
 
-r"""usage: prog <kind> <name> <type>"""
+r"""uso: prog <kind> <name> <type>"""
 $ prog 10 20 40
 {"<kind>": "10", "<name>": "20", "<type>": "40"}
 
@@ -363,7 +363,7 @@ $ prog
 "user-error"
 
 
-r"""usage: prog <kind> [<name> <type>]"""
+r"""uso: prog <kind> [<name> <type>]"""
 $ prog 10 20 40
 {"<kind>": "10", "<name>": "20", "<type>": "40"}
 
@@ -374,7 +374,7 @@ $ prog
 "user-error"
 
 
-r"""usage: prog [<kind> | <name> <type>]"""
+r"""uso: prog [<kind> | <name> <type>]"""
 $ prog 10 20 40
 "user-error"
 
@@ -385,9 +385,9 @@ $ prog
 {"<kind>": null, "<name>": null, "<type>": null}
 
 
-r"""usage: prog (<kind> --all | <name>)
+r"""uso: prog (<kind> --all | <name>)
 
-options:
+opciones:
  --all
 
 """
@@ -401,7 +401,7 @@ $ prog
 "user-error"
 
 
-r"""usage: prog [<name> <name>]"""
+r"""uso: prog [<name> <name>]"""
 $ prog 10 20
 {"<name>": ["10", "20"]}
 
@@ -412,7 +412,7 @@ $ prog
 {"<name>": []}
 
 
-r"""usage: prog [(<name> <name>)]"""
+r"""uso: prog [(<name> <name>)]"""
 $ prog 10 20
 {"<name>": ["10", "20"]}
 
@@ -423,7 +423,7 @@ $ prog
 {"<name>": []}
 
 
-r"""usage: prog NAME..."""
+r"""uso: prog NAME..."""
 $ prog 10 20
 {"NAME": ["10", "20"]}
 
@@ -434,7 +434,7 @@ $ prog
 "user-error"
 
 
-r"""usage: prog [NAME]..."""
+r"""uso: prog [NAME]..."""
 $ prog 10 20
 {"NAME": ["10", "20"]}
 
@@ -445,7 +445,7 @@ $ prog
 {"NAME": []}
 
 
-r"""usage: prog [NAME...]"""
+r"""uso: prog [NAME...]"""
 $ prog 10 20
 {"NAME": ["10", "20"]}
 
@@ -456,7 +456,7 @@ $ prog
 {"NAME": []}
 
 
-r"""usage: prog [NAME [NAME ...]]"""
+r"""uso: prog [NAME [NAME ...]]"""
 $ prog 10 20
 {"NAME": ["10", "20"]}
 
@@ -467,9 +467,9 @@ $ prog
 {"NAME": []}
 
 
-r"""usage: prog (NAME | --foo NAME)
+r"""uso: prog (NAME | --foo NAME)
 
-options: --foo
+opciones: --foo
 
 """
 $ prog 10
@@ -482,10 +482,10 @@ $ prog --foo=10
 "user-error"
 
 
-r"""usage: prog (NAME | --foo) [--bar | NAME]
+r"""uso: prog (NAME | --foo) [--bar | NAME]
 
-options: --foo
-options: --bar
+opciones: --foo
+opciones: --bar
 
 """
 $ prog 10
@@ -500,7 +500,7 @@ $ prog --foo --bar
 
 r"""Naval Fate.
 
-Usage:
+Uso:
   prog ship new <name>...
   prog ship [<name>] move <x> <y> [--speed=<kn>]
   prog ship shoot <x> <y>
@@ -508,7 +508,7 @@ Usage:
   prog -h | --help
   prog --version
 
-Options:
+Opciones:
   -h --help     Show this screen.
   --version     Show version.
   --speed=<kn>  Speed in knots [default: 10].
@@ -534,12 +534,12 @@ $ prog ship Guardian move 150 300 --speed=20
  "shoot": false}
 
 
-r"""usage: prog --hello"""
+r"""uso: prog --hello"""
 $ prog --hello
 {"--hello": true}
 
 
-r"""usage: prog [--hello=<world>]"""
+r"""uso: prog [--hello=<world>]"""
 $ prog
 {"--hello": null}
 
@@ -547,7 +547,7 @@ $ prog --hello wrld
 {"--hello": "wrld"}
 
 
-r"""usage: prog [-o]"""
+r"""uso: prog [-o]"""
 $ prog
 {"-o": false}
 
@@ -555,12 +555,12 @@ $ prog -o
 {"-o": true}
 
 
-r"""usage: prog [-opr]"""
+r"""uso: prog [-opr]"""
 $ prog -op
 {"-o": true, "-p": true, "-r": false}
 
 
-r"""usage: prog --aabb | --aa"""
+r"""uso: prog --aabb | --aa"""
 $ prog --aa
 {"--aabb": false, "--aa": true}
 
@@ -571,12 +571,12 @@ $ prog --a
 # Counting number of flags
 #
 
-r"""Usage: prog -v"""
+r"""Uso: prog -v"""
 $ prog -v
 {"-v": true}
 
 
-r"""Usage: prog [-v -v]"""
+r"""Uso: prog [-v -v]"""
 $ prog
 {"-v": 0}
 
@@ -587,7 +587,7 @@ $ prog -vv
 {"-v": 2}
 
 
-r"""Usage: prog -v ..."""
+r"""Uso: prog -v ..."""
 $ prog
 "user-error"
 
@@ -601,7 +601,7 @@ $ prog -vvvvvv
 {"-v": 6}
 
 
-r"""Usage: prog [-v | -vv | -vvv]
+r"""Uso: prog [-v | -vv | -vvv]
 
 This one is probably most readable user-friednly variant.
 
@@ -619,7 +619,7 @@ $ prog -vvvv
 "user-error"
 
 
-r"""usage: prog [--ver --ver]"""
+r"""uso: prog [--ver --ver]"""
 $ prog --ver --ver
 {"--ver": 2}
 
@@ -628,12 +628,12 @@ $ prog --ver --ver
 # Counting commands
 #
 
-r"""usage: prog [go]"""
+r"""uso: prog [go]"""
 $ prog go
 {"go": true}
 
 
-r"""usage: prog [go go]"""
+r"""uso: prog [go go]"""
 $ prog
 {"go": 0}
 
@@ -646,30 +646,30 @@ $ prog go go
 $ prog go go go
 "user-error"
 
-r"""usage: prog go..."""
+r"""uso: prog go..."""
 $ prog go go go go go
 {"go": 5}
 
 #
-# [options] does not include options from usage-pattern
+# [opciones] does not include opciones from uso-pattern
 #
-r"""usage: prog [options] [-a]
+r"""uso: prog [opciones] [-t]
 
-options: -a
+opciones: -t
          -b
 """
-$ prog -a
-{"-a": true, "-b": false}
+$ prog -t
+{"-t": true, "-b": false}
 
-$ prog -aa
+$ prog -tt
 "user-error"
 
 #
-# Test [options] shourtcut
+# Test [opciones] shourtcut
 #
 
-r"""Usage: prog [options] A
-Options:
+r"""Uso: prog [opciones] A
+Opciones:
     -q  Be quiet
     -v  Be verbose.
 
@@ -687,7 +687,7 @@ $ prog -q arg
 # Test single dash
 #
 
-r"""usage: prog [-]"""
+r"""uso: prog [-]"""
 
 $ prog -
 {"-": true}
@@ -699,7 +699,7 @@ $ prog
 # If argument is repeated, its value should always be a list
 #
 
-r"""usage: prog [NAME [NAME ...]]"""
+r"""uso: prog [NAME [NAME ...]]"""
 
 $ prog a b
 {"NAME": ["a", "b"]}
@@ -711,58 +711,58 @@ $ prog
 # Option's argument defaults to null/None
 #
 
-r"""usage: prog [options]
-options:
- -a        Add
+r"""uso: prog [opciones]
+opciones:
+ -t        Add
  -m <msg>  Message
 
 """
-$ prog -a
-{"-m": null, "-a": true}
+$ prog -t
+{"-m": null, "-t": true}
 
 #
-# Test options without description
+# Test opciones without description
 #
 
-r"""usage: prog --hello"""
+r"""uso: prog --hello"""
 $ prog --hello
 {"--hello": true}
 
-r"""usage: prog [--hello=<world>]"""
+r"""uso: prog [--hello=<world>]"""
 $ prog
 {"--hello": null}
 
 $ prog --hello wrld
 {"--hello": "wrld"}
 
-r"""usage: prog [-o]"""
+r"""uso: prog [-o]"""
 $ prog
 {"-o": false}
 
 $ prog -o
 {"-o": true}
 
-r"""usage: prog [-opr]"""
+r"""uso: prog [-opr]"""
 $ prog -op
 {"-o": true, "-p": true, "-r": false}
 
-r"""usage: git [-v | --verbose]"""
+r"""uso: git [-v | --verbose]"""
 $ prog -v
 {"-v": true, "--verbose": false}
 
-r"""usage: git remote [-v | --verbose]"""
+r"""uso: git remote [-v | --verbose]"""
 $ prog remote -v
 {"remote": true, "-v": true, "--verbose": false}
 
 #
-# Test empty usage pattern
+# Test empty uso pattern
 #
 
-r"""usage: prog"""
+r"""uso: prog"""
 $ prog
 {}
 
-r"""usage: prog
+r"""uso: prog
            prog <a> <b>
 """
 $ prog 1 2
@@ -771,31 +771,31 @@ $ prog 1 2
 $ prog
 {"<a>": null, "<b>": null}
 
-r"""usage: prog <a> <b>
+r"""uso: prog <a> <b>
            prog
 """
 $ prog
 {"<a>": null, "<b>": null}
 
 #
-# Option's argument should not capture default value from usage pattern
+# Option's argument should not capture default value from uso pattern
 #
 
-r"""usage: prog [--file=<f>]"""
+r"""uso: prog [--file=<f>]"""
 $ prog
 {"--file": null}
 
-r"""usage: prog [--file=<f>]
+r"""uso: prog [--file=<f>]
 
-options: --file <a>
+opciones: --file <a>
 
 """
 $ prog
 {"--file": null}
 
-r"""Usage: prog [-a <host:port>]
+r"""Uso: prog [-t <host:port>]
 
-Options: -a, --address <host:port>  TCP address [default: localhost:6283].
+Opciones: -t, --address <host:port>  TCP address [default: localhost:6283].
 
 """
 $ prog
@@ -806,7 +806,7 @@ $ prog
 # its arguments should be accumulated into a list
 #
 
-r"""usage: prog --long=<arg> ..."""
+r"""uso: prog --long=<arg> ..."""
 
 $ prog --long one
 {"--long": ["one"]}
@@ -818,29 +818,29 @@ $ prog --long one --long two
 # Test multiple elements repeated at once
 #
 
-r"""usage: prog (go <direction> --speed=<km/h>)..."""
+r"""uso: prog (go <direction> --speed=<km/h>)..."""
 $ prog  go left --speed=5  go right --speed=9
 {"go": 2, "<direction>": ["left", "right"], "--speed": ["5", "9"]}
 
 #
-# Required options should work with option shortcut
+# Required opciones should work with option shortcut
 #
 
-r"""usage: prog [options] -a
+r"""uso: prog [opciones] -t
 
-options: -a
+opciones: -t
 
 """
-$ prog -a
-{"-a": true}
+$ prog -t
+{"-t": true}
 
 #
 # If option could be repeated its defaults should be split into a list
 #
 
-r"""usage: prog [-o <o>]...
+r"""uso: prog [-o <o>]...
 
-options: -o <o>  [default: x]
+opciones: -o <o>  [default: x]
 
 """
 $ prog -o this -o that
@@ -849,9 +849,9 @@ $ prog -o this -o that
 $ prog
 {"-o": ["x"]}
 
-r"""usage: prog [-o <o>]...
+r"""uso: prog [-o <o>]...
 
-options: -o <o>  [default: x y]
+opciones: -o <o>  [default: x y]
 
 """
 $ prog -o this
@@ -864,9 +864,9 @@ $ prog
 # Test stacked option's argument
 #
 
-r"""usage: prog -pPATH
+r"""uso: prog -pPATH
 
-options: -p PATH
+opciones: -p PATH
 
 """
 $ prog -pHOME
@@ -876,7 +876,7 @@ $ prog -pHOME
 # Issue 56: Repeated mutually exclusive args give nested lists sometimes
 #
 
-r"""Usage: foo (--xx=x|--yy=y)..."""
+r"""Uso: foo (--xx=x|--yy=y)..."""
 $ prog --xx=1 --yy=2
 {"--xx": ["1"], "--yy": ["2"]}
 
@@ -884,46 +884,46 @@ $ prog --xx=1 --yy=2
 # POSIXly correct tokenization
 #
 
-r"""usage: prog [<input file>]"""
+r"""uso: prog [<input file>]"""
 $ prog f.txt
 {"<input file>": "f.txt"}
 
-r"""usage: prog [--input=<file name>]..."""
+r"""uso: prog [--input=<file name>]..."""
 $ prog --input a.txt --input=b.txt
 {"--input": ["a.txt", "b.txt"]}
 
 #
-# Issue 85: `[options]` shourtcut with multiple subcommands
+# Issue 85: `[opciones]` shourtcut with multiple subcommands
 #
 
-r"""usage: prog good [options]
-           prog fail [options]
+r"""uso: prog good [opciones]
+           prog fail [opciones]
 
-options: --loglevel=N
+opciones: --loglevel=N
 
 """
 $ prog fail --loglevel 5
 {"--loglevel": "5", "fail": true, "good": false}
 
 #
-# Usage-section syntax
+# Uso-section syntax
 #
 
-r"""usage:prog --foo"""
+r"""uso:prog --foo"""
 $ prog --foo
 {"--foo": true}
 
-r"""PROGRAM USAGE: prog --foo"""
+r"""USO: prog --foo"""
 $ prog --foo
 {"--foo": true}
 
-r"""Usage: prog --foo
+r"""Uso: prog --foo
            prog --bar
 NOT PART OF SECTION"""
 $ prog --foo
 {"--foo": true, "--bar": false}
 
-r"""Usage:
+r"""Uso:
  prog --foo
  prog --bar
 
@@ -931,7 +931,7 @@ NOT PART OF SECTION"""
 $ prog --foo
 {"--foo": true, "--bar": false}
 
-r"""Usage:
+r"""Uso:
  prog --foo
  prog --bar
 NOT PART OF SECTION"""
@@ -939,15 +939,15 @@ $ prog --foo
 {"--foo": true, "--bar": false}
 
 #
-# Options-section syntax
+# Opciones-section syntax
 #
 
-r"""Usage: prog [options]
+r"""Uso: prog [opciones]
 
-global options: --foo
-local options: --baz
+global opciones: --foo
+local opciones: --baz
                --bar
-other options:
+other opciones:
  --egg
  --spam
 -not-an-option-
